@@ -1,0 +1,4 @@
+method,cost,sample_units,duration_days,destructive
+efficiency,500,1,2,false
+self_discharge,300,1,6,false
+insulation,400,1,1,true

@@ -1,0 +1,471 @@
+{
+  "title": "储能实证网络的实验室可比性与复测分派",
+  "synthetic": true,
+  "tables": [
+    {
+      "name": "labs",
+      "description": "实证站及运输。",
+      "columns": [
+        {
+          "name": "lab_id",
+          "type": "string",
+          "description": "站",
+          "nullable": true
+        },
+        {
+          "name": "methods",
+          "type": "string",
+          "description": "支持方法逗号分隔",
+          "nullable": true
+        },
+        {
+          "name": "capacity_daily",
+          "type": "integer",
+          "description": "每日台位",
+          "nullable": true
+        },
+        {
+          "name": "transport_days",
+          "type": "integer",
+          "description": "寄运日",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "lab_id"
+      ],
+      "references": [],
+      "path": "data/labs.csv",
+      "row_count": 4,
+      "sha256": "6f8bbb7adcf2c01d6f33328fe0dc2f3676d6846c91e4a46ecef8a164ab71b2c2"
+    },
+    {
+      "name": "samples",
+      "description": "盲样和留样，数量为可分发单位。",
+      "columns": [
+        {
+          "name": "sample_id",
+          "type": "string",
+          "description": "样品",
+          "nullable": true
+        },
+        {
+          "name": "batch_id",
+          "type": "string",
+          "description": "产品批",
+          "nullable": true
+        },
+        {
+          "name": "kind",
+          "type": "string",
+          "description": "用途",
+          "nullable": true
+        },
+        {
+          "name": "produced",
+          "type": "date",
+          "description": "制样",
+          "nullable": true
+        },
+        {
+          "name": "remaining_units",
+          "type": "integer",
+          "description": "剩余份",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "sample_id"
+      ],
+      "references": [],
+      "path": "data/samples.csv",
+      "row_count": 36,
+      "sha256": "f3f6581aa9d4c333dbba0f476ab9a58a194f11c2adbeb0f42d1f25d74ebd596e"
+    },
+    {
+      "name": "measurements",
+      "description": "逐次原始测量，unit_id为同一样品中分出的实物份，破坏后该份不能再测；同父样的重复不独立制造。",
+      "columns": [
+        {
+          "name": "measurement_id",
+          "type": "string",
+          "description": "测量",
+          "nullable": true
+        },
+        {
+          "name": "sample_id",
+          "type": "string",
+          "description": "样品",
+          "nullable": true
+        },
+        {
+          "name": "unit_id",
+          "type": "string",
+          "description": "实物份",
+          "nullable": true
+        },
+        {
+          "name": "lab_id",
+          "type": "string",
+          "description": "站",
+          "nullable": true
+        },
+        {
+          "name": "method",
+          "type": "string",
+          "description": "方法",
+          "nullable": true
+        },
+        {
+          "name": "method_version",
+          "type": "string",
+          "description": "版本",
+          "nullable": true
+        },
+        {
+          "name": "range_id",
+          "type": "string",
+          "description": "量程",
+          "nullable": true
+        },
+        {
+          "name": "sequence",
+          "type": "integer",
+          "description": "实物测试顺序",
+          "nullable": true
+        },
+        {
+          "name": "old_days",
+          "type": "integer",
+          "description": "制样后天数",
+          "nullable": true
+        },
+        {
+          "name": "value",
+          "type": "number",
+          "description": "原读数",
+          "nullable": true
+        },
+        {
+          "name": "reported_u",
+          "type": "number",
+          "description": "标准不确定度",
+          "nullable": true
+        },
+        {
+          "name": "destructive",
+          "type": "boolean",
+          "description": "破坏",
+          "nullable": true
+        },
+        {
+          "name": "available_at",
+          "type": "datetime",
+          "description": "可知",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "measurement_id"
+      ],
+      "references": [
+        {
+          "column": "sample_id",
+          "target_table": "samples",
+          "target_column": "sample_id"
+        },
+        {
+          "column": "lab_id",
+          "target_table": "labs",
+          "target_column": "lab_id"
+        }
+      ],
+      "path": "data/measurements.csv",
+      "row_count": 167,
+      "sha256": "2c2f8af3840ffe76cd40c42524a47a3ef11b3cda39f986cb9d5006c645d9bd95"
+    },
+    {
+      "name": "references",
+      "description": "参考值赋值及共同误差。",
+      "columns": [
+        {
+          "name": "sample_id",
+          "type": "string",
+          "description": "参考样",
+          "nullable": true
+        },
+        {
+          "name": "method",
+          "type": "string",
+          "description": "方法",
+          "nullable": true
+        },
+        {
+          "name": "reference_group",
+          "type": "string",
+          "description": "赋值组",
+          "nullable": true
+        },
+        {
+          "name": "assigned_value",
+          "type": "number",
+          "description": "赋值",
+          "nullable": true
+        },
+        {
+          "name": "uncertainty",
+          "type": "number",
+          "description": "标准不确定度",
+          "nullable": true
+        },
+        {
+          "name": "revision",
+          "type": "integer",
+          "description": "版本",
+          "nullable": true
+        },
+        {
+          "name": "available_at",
+          "type": "datetime",
+          "description": "可知",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "sample_id",
+        "method",
+        "revision"
+      ],
+      "references": [
+        {
+          "column": "sample_id",
+          "target_table": "samples",
+          "target_column": "sample_id"
+        }
+      ],
+      "path": "data/references.csv",
+      "row_count": 27,
+      "sha256": "0a03c9a334930e57c189bc7233d5b7433307d8ed691784941a3238f59cbc6cd5"
+    },
+    {
+      "name": "claims",
+      "description": "客户声明，不预定认可结果。",
+      "columns": [
+        {
+          "name": "claim_id",
+          "type": "string",
+          "description": "声明",
+          "nullable": true
+        },
+        {
+          "name": "batch_id",
+          "type": "string",
+          "description": "批次",
+          "nullable": true
+        },
+        {
+          "name": "method",
+          "type": "string",
+          "description": "方法",
+          "nullable": true
+        },
+        {
+          "name": "version",
+          "type": "string",
+          "description": "版本",
+          "nullable": true
+        },
+        {
+          "name": "range_id",
+          "type": "string",
+          "description": "量程",
+          "nullable": true
+        },
+        {
+          "name": "direction",
+          "type": "string",
+          "description": "lower或upper",
+          "nullable": true
+        },
+        {
+          "name": "threshold",
+          "type": "number",
+          "description": "性能界限",
+          "nullable": true
+        },
+        {
+          "name": "tolerance",
+          "type": "number",
+          "description": "容许误差",
+          "nullable": true
+        },
+        {
+          "name": "reply_by",
+          "type": "date",
+          "description": "答复日",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "claim_id"
+      ],
+      "references": [],
+      "path": "data/claims.csv",
+      "row_count": 6,
+      "sha256": "9020ee8dfb134c28cb2e0adf65355e4d1d09f78db432d3eeb6c11759cba1a76c"
+    },
+    {
+      "name": "instrument_state",
+      "description": "仪器有效测量边界。",
+      "columns": [
+        {
+          "name": "state_id",
+          "type": "string",
+          "description": "记录",
+          "nullable": true
+        },
+        {
+          "name": "lab_id",
+          "type": "string",
+          "description": "站",
+          "nullable": true
+        },
+        {
+          "name": "method",
+          "type": "string",
+          "description": "方法",
+          "nullable": true
+        },
+        {
+          "name": "start",
+          "type": "date",
+          "description": "开始",
+          "nullable": true
+        },
+        {
+          "name": "end",
+          "type": "date",
+          "description": "结束",
+          "nullable": true
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "description": "normal或under_review",
+          "nullable": true
+        },
+        {
+          "name": "available_at",
+          "type": "datetime",
+          "description": "可知",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "state_id"
+      ],
+      "references": [
+        {
+          "column": "lab_id",
+          "target_table": "labs",
+          "target_column": "lab_id"
+        }
+      ],
+      "path": "data/instrument_state.csv",
+      "row_count": 3,
+      "sha256": "38e65e7e19524fc905a5ec956241d15b5a28205fda4d52643d098a3d87426361"
+    },
+    {
+      "name": "test_costs",
+      "description": "有损与费用契约。",
+      "columns": [
+        {
+          "name": "method",
+          "type": "string",
+          "description": "方法",
+          "nullable": true
+        },
+        {
+          "name": "cost",
+          "type": "number",
+          "description": "费用",
+          "nullable": true
+        },
+        {
+          "name": "sample_units",
+          "type": "integer",
+          "description": "耗样份",
+          "nullable": true
+        },
+        {
+          "name": "duration_days",
+          "type": "integer",
+          "description": "时长",
+          "nullable": true
+        },
+        {
+          "name": "destructive",
+          "type": "boolean",
+          "description": "破坏",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "method"
+      ],
+      "references": [],
+      "path": "data/test_costs.csv",
+      "row_count": 3,
+      "sha256": "0196dbd8b707c6a067b110a40ca14b7f6e24b9e38149e14dce7bf662ba76b5b5"
+    },
+    {
+      "name": "slots",
+      "description": "未来共享台位。",
+      "columns": [
+        {
+          "name": "slot_id",
+          "type": "string",
+          "description": "时段",
+          "nullable": true
+        },
+        {
+          "name": "lab_id",
+          "type": "string",
+          "description": "站",
+          "nullable": true
+        },
+        {
+          "name": "date",
+          "type": "date",
+          "description": "日期",
+          "nullable": true
+        },
+        {
+          "name": "free_capacity",
+          "type": "integer",
+          "description": "余位",
+          "nullable": true
+        },
+        {
+          "name": "budget",
+          "type": "number",
+          "description": "本轮预算仅首行",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "slot_id"
+      ],
+      "references": [
+        {
+          "column": "lab_id",
+          "target_table": "labs",
+          "target_column": "lab_id"
+        }
+      ],
+      "path": "data/slots.csv",
+      "row_count": 40,
+      "sha256": "c595c78e15259c9bbad01e01d5cc86891f3c20be212be688bf4e5c9c901db333"
+    }
+  ]
+}

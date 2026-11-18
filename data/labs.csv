@@ -1,0 +1,5 @@
+lab_id,methods,capacity_daily,transport_days
+L1,"efficiency,self_discharge",4,2
+L2,"efficiency,insulation",3,3
+L3,"self_discharge,insulation",3,4
+L4,efficiency,2,6

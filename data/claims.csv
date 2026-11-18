@@ -1,0 +1,7 @@
+claim_id,batch_id,method,version,range_id,direction,threshold,tolerance,reply_by
+C1,B2,efficiency,v1,standard,lower,0.915,0.006,2025-02-15
+C2,B3,efficiency,v1,standard,lower,0.915,0.006,2025-02-15
+C3,B4,efficiency,v1,standard,lower,0.915,0.006,2025-02-15
+C4,B5,efficiency,v1,standard,lower,0.915,0.006,2025-02-15
+C5,B6,efficiency,v1,standard,lower,0.915,0.006,2025-02-15
+C6,B1,efficiency,v1,standard,lower,0.915,0.006,2025-02-15

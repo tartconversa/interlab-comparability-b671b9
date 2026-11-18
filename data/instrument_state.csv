@@ -1,0 +1,4 @@
+state_id,lab_id,method,start,end,status,available_at
+D1,L1,efficiency,2025-01-01,2025-04-11,normal,2025-01-21T08:00:00+08:00
+D2,L2,efficiency,2025-01-01,2025-04-11,under_review,2025-01-21T08:00:00+08:00
+D4,L4,efficiency,2025-01-01,2025-04-11,normal,2025-01-21T08:00:00+08:00
